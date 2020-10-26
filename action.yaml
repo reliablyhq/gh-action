@@ -1,0 +1,17 @@
+name: 'reliably-action'
+description: 'Run manifests analysis for reliability issues'
+inputs:
+  policies:
+    description: 'Path to policies directory'
+    required: false
+    default: 'policies'
+  files:
+    description: 'Files subject to verification'
+    required: false
+    default: 'manifest.yaml'
+outputs:
+  result:
+    description: 'Outputs of Reliably'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
