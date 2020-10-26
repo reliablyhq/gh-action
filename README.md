@@ -1,2 +1,2 @@
-# gh-action
-Reliably validation as a GitHub Action
+# GitHub Action
+Reliably's GitHub action to detect vulnerabilities in your Platform manifests
