@@ -18,7 +18,7 @@ do
   csplit --quiet --prefix="$MANIFESTS/manifest" $file "/---/" "{*}"
 
   # iterate over the split files
-  for manifest in $MANIFESTS
+  for manifest in $MANIFESTS/*
   do
 
     # convert the manifest from yaml to json (opa only accepts json)
