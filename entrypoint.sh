@@ -22,10 +22,11 @@ do
   do
 
     # convert the manifest from yaml to json (opa only accepts json)
-    yaml2json $manifest > $manifest.json
+    # modify the file in-place
+    yaml2json $manifest > $manifest
 
     # run the policies/rules validation - NON-breaking call
-    opa eval $manifest.json -d ${INPUT_POLICIES} --format pretty '"data"' || true
+    opa eval $manifest -d ${INPUT_POLICIES} --format pretty '"data"' || true
 
   done
 
