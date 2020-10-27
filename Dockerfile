@@ -17,10 +17,8 @@ COPY --from=installer /tmp/yaml2json/yaml2json-linux-amd64 /usr/local/bin/yaml2j
 COPY --from=installer /usr/bin/csplit /usr/bin/csplit
 
 RUN opa version
-
-# DEBUG - ensure tools are installed -
-RUN csplit --help
-RUN yaml2json --help
+RUN csplit --version
+RUN yaml2json -version
 
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
