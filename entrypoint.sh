@@ -26,7 +26,7 @@ do
     yaml2json $manifest > $manifest
 
     # run the policies/rules validation - NON-breaking call
-    opa eval $manifest -d ${INPUT_POLICIES} --format pretty '"data"' || true
+    opa eval -i $manifest -d ${INPUT_POLICIES} --format pretty '"data"' || true
 
   done
 
