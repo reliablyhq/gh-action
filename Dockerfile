@@ -14,7 +14,7 @@ FROM alpine:3.7
 COPY --from=installer /tmp/opa/opa_linux_amd64 /usr/local/bin/opa
 COPY --from=installer /tmp/yaml2json/yaml2json-linux-amd64 /usr/local/bin/yaml2json
 
-COPY --from=installer /usr/bin/coreutils /usr/bin/coreutils
+COPY --from=installer /usr/bin/csplit /usr/bin/csplit
 
 RUN opa version
 
