@@ -17,16 +17,23 @@ do
   # split manifest into multiples files, in case it contain several resources
   csplit --quiet --prefix="$MANIFESTS/manifest" $file "/---/" "{*}"
 
+  echo "list manifests subfolder"
+  ls $MANIFESTS
+
   # iterate over the split files
   for manifest in $MANIFESTS/*
   do
+
+    cat $manifest
 
     # convert the manifest from yaml to json (opa only accepts json)
     # modify the file in-place
     yaml2json $manifest > $manifest
 
+    cat $manifest
+
     # run the policies/rules validation - NON-breaking call
-    opa eval -i $manifest -d ${INPUT_POLICIES} --format pretty '"data"' || true
+    opa eval -i $manifest -d ${INPUT_POLICIES} --format pretty '"data"'
 
   done
 
