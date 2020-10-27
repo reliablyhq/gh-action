@@ -33,7 +33,7 @@ do
     yaml2json $manifest > $manifest.json
 
     # run the policies/rules validation - NON-breaking call
-    opa eval -i $manifest.json -d ${INPUT_POLICIES} --format pretty '"data"'
+    opa eval -i $manifest.json -d ${INPUT_POLICIES} --format pretty 'data'
 
   done
 
