@@ -13,7 +13,12 @@ RUN mkdir -p /tmp/yaml2json \
 FROM alpine:3.7
 COPY --from=installer /tmp/opa/opa_linux_amd64 /usr/local/bin/opa
 COPY --from=installer /tmp/yaml2json/yaml2json-linux-amd64 /usr/local/bin/yaml2json
+
 RUN opa version
+
+# DEBUG - ensure tools are installed -
+RUN csplit --help
+RUN yaml2json --help
 
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
