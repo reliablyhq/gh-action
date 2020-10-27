@@ -24,16 +24,16 @@ do
   for manifest in $MANIFESTS/*
   do
 
+    echo "Validate manifest $manifest"
     cat $manifest
 
     # convert the manifest from yaml to json (opa only accepts json)
-    # modify the file in-place
-    yaml2json $manifest > $manifest
+    yaml2json $manifest > $manifest.json
 
-    cat $manifest
+    cat $manifest.json
 
     # run the policies/rules validation - NON-breaking call
-    opa eval -i $manifest -d ${INPUT_POLICIES} --format pretty '"data"'
+    opa eval -i $manifest.json -d ${INPUT_POLICIES} --format pretty '"data"'
 
   done
 
