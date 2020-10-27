@@ -6,7 +6,7 @@ sh -c "echo $*"
 
 # create a temporary folder that will contain all split files for resources
 # to validate, `opa eval` can only validate one input (ie object) at a time
-MANIFESTS = .reliably/manifests
+MANIFESTS=.reliably/manifests
 mkdir -p $MANIFESTS
 
 for file in ${INPUT_FILES}
