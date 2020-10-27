@@ -1,4 +1,5 @@
 #!/bin/sh
+set -x
 
 # `$*` expands the `args` supplied in an `array` individually
 # or splits `args` in a string separated by whitespace.
@@ -11,10 +12,10 @@ mkdir -p $MANIFESTS
 
 for file in ${INPUT_FILES}
 do
-  echo "Process manifest $file"
+  echo "Process manifest '$file'"
 
   # split manifest into multiples files, in case it contain several resources
-  csplit --quiet --prefix=$MANIFESTS/manifest $file "/---/" "{*}"
+  csplit --quiet --prefix="$MANIFESTS/manifest" $file "/---/" "{*}"
 
   # iterate over the split files
   for manifest in $MANIFESTS
