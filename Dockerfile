@@ -1,5 +1,5 @@
 FROM alpine:3.7 AS installer
-RUN apk --no-cache add --update wget
+RUN apk --no-cache add --update wget coreutils
 
 # Install open-policy-agent/opa
 ENV OPA_VERSION=v0.24.0
@@ -13,6 +13,8 @@ RUN mkdir -p /tmp/yaml2json \
 FROM alpine:3.7
 COPY --from=installer /tmp/opa/opa_linux_amd64 /usr/local/bin/opa
 COPY --from=installer /tmp/yaml2json/yaml2json-linux-amd64 /usr/local/bin/yaml2json
+
+COPY --from=installer /usr/bin/coreutils /usr/bin/coreutils
 
 RUN opa version
 
