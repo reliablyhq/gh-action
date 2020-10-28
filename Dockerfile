@@ -1,5 +1,5 @@
 FROM alpine:3.7 AS installer
-RUN apk --no-cache add --update wget coreutils
+RUN apk --no-cache add --update wget coreutils git
 
 # Install open-policy-agent/opa
 ENV OPA_VERSION=v0.24.0
@@ -10,11 +10,14 @@ RUN mkdir -p /tmp/yaml2json \
     && wget -O /tmp/yaml2json/yaml2json-linux-amd64 https://github.com/wakeful/yaml2json/releases/latest/download/yaml2json-linux-amd64 \
     && chmod +x /tmp/yaml2json/yaml2json-linux-amd64
 
+RUN git clone https://github.com/reliablyhq/opa-policies.git /tmp/policies
+
 FROM alpine:3.7
 COPY --from=installer /tmp/opa/opa_linux_amd64 /usr/local/bin/opa
 COPY --from=installer /tmp/yaml2json/yaml2json-linux-amd64 /usr/local/bin/yaml2json
-
 COPY --from=installer /usr/bin/csplit /usr/bin/csplit
+
+COPY --from=installer /tmp/policies /policies
 
 # must be installed here, cause needs dependent libraries
 RUN apk --no-cache add --update jq \

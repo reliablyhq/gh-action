@@ -8,6 +8,7 @@ sh -c "echo $*"
 # create a temporary folder that will contain all split files for resources
 # to validate, `opa eval` can only validate one input (ie object) at a time
 MANIFESTS=.reliably/manifests
+POLICIES=/policies/kubernetes
 mkdir -p $MANIFESTS
 error=false
 violationCount=0
@@ -22,8 +23,8 @@ do
   echo "list manifests subfolder '$MANIFESTS'"
   ls $MANIFESTS
 
-  echo "list policies subfolder '${INPUT_POLICIES}'"
-  ls ${INPUT_POLICIES}
+  echo "list policies subfolder '${POLICIES}'"
+  ls ${POLICIES}
 
   # iterate over the split files
   for manifest in $MANIFESTS/*
@@ -35,7 +36,7 @@ do
     yaml2json $manifest > $manifest.json
 
     # run the policies/rules validation - NON-breaking call
-    opa eval -i $manifest.json -d ${INPUT_POLICIES} --format pretty 'data' > opa.json
+    opa eval -i $manifest.json -d ${POLICIES} --format pretty 'data' > opa.json
 
     # count the number of violations to exit with non-zero status code
     count=$(cat opa.json | jq 'first(.[])[].violations' | grep -v '\[' | grep -v '\]' | wc -l)
