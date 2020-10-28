@@ -37,6 +37,7 @@ do
     opa eval --fail-defined  -i $manifest.json -d ${INPUT_POLICIES} --format pretty 'data'; rc=0 || rc=$?
 
     if [ $rc -ne 0 ]; then
+      echo "OPA eval failed with defined violation $rc; set error to true"
       error=true
     fi
 
@@ -48,6 +49,8 @@ done
 
 
 # fails the action globally if at least one violation was found
+echo "error boolean value is $error"
 if [ error == true ]; then
+  echo "force exit with non-zero return code"
   exit 1
 fi
