@@ -16,8 +16,8 @@ violationCount=0
 
 for file in ${INPUT_FILES}
 do
-  echo "Process manifest '$file'"
-  echo $file >> $REPORT
+  #echo "Process manifest '$file'"
+  echo "$file" >> $REPORT
   echo "----------" >> $REPORT
 
   # split manifest into multiples files, in case it contain several resources
@@ -33,7 +33,7 @@ do
   for manifest in $MANIFESTS/*
   do
 
-    echo "Validate manifest $manifest"
+    #echo "Validate manifest $manifest"
     echo $manifest >> $REPORT
 
     # convert the manifest from yaml to json (opa only accepts json)
@@ -47,7 +47,7 @@ do
     violationCount=$(( $violationCount + $count ))
 
     # display the report to user
-    cat opa.json
+    #cat opa.json
     cat opa.json >> $REPORT
 
   done
