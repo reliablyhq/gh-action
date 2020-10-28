@@ -29,6 +29,31 @@ These are passed to the action using `with`.
 | --- | --- | --- |
 | files |   | List of file paths to check for vulnerabilities |
 
+### Triggering on manifest change only
+
+You can trigger the workflow only when your manifests files change,
+using the `on` syntax as follow:
+
+```yaml
+
+on:
+  push:
+    paths:
+      - 'manifest.yaml'
+```
+
+Or for any yaml file within your repository:
+
+```yaml
+
+on:
+  push:
+    paths:
+      - '**.yaml'
+```
+
+To know more on how to filter paths, for triggering your workflow,
+you can have a look at the [GitHub Workflow syntax](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestpaths) reference.
 
 
 ### Continuing on error
