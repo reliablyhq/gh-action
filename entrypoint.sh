@@ -10,6 +10,7 @@ sh -c "echo $*"
 MANIFESTS=.reliably/manifests
 mkdir -p $MANIFESTS
 error=false
+violationCount=0
 
 for file in ${INPUT_FILES}
 do
@@ -34,14 +35,14 @@ do
     yaml2json $manifest > $manifest.json
 
     # run the policies/rules validation - NON-breaking call
-    opa eval --fail-defined  -i $manifest.json -d ${INPUT_POLICIES} --format pretty 'data' && rc=0 || rc=$?
+    opa eval -i $manifest.json -d ${INPUT_POLICIES} --format pretty 'data' > opa.json
 
-    echo "opa eval rc = $rc"
+    # display the report to user
+    cat opa.json
 
-    if [ $rc -ne 0 ]; then
-      echo "OPA eval failed with defined violation $rc; set error to true"
-      error=true
-    fi
+    # count the number of violations to exit with non-zero status code
+    count=$(cat opa.json | jq 'first(.[])[].violations' | grep -v '\[' | grep -v '\]' | wc -l)
+    violationCount=$(( $violationCount + $c ))
 
   done
 
@@ -49,10 +50,10 @@ do
   rm $MANIFESTS/*
 done
 
-
 # fails the action globally if at least one violation was found
 echo "error boolean value is $error"
-if [ error == true ]; then
+if [ $violationCount -ne 0 ]; then
+  echo "Manifest(s) have $violationCount violation(s)"
   echo "force exit with non-zero return code"
   exit 1
 fi
