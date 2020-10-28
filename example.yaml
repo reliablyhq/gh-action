@@ -1,0 +1,21 @@
+# A sample workflow which checks out the code for vulnerabilities
+# using Reliably.
+# The results are then uploaded to GitHub Security Code Scanning.
+
+name: Reliably workflow
+on:
+  push:
+    paths:
+      - 'manifest.yaml'
+jobs:
+  reliably:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 'Checkout source code'
+        uses: actions/checkout@v2
+      - name: Run Reliably to check manifests for vulnerabilities
+        continue-on-error: true
+        uses: reliablyhq/gh-action@main
+        with:
+          files: 'manifest.yaml'
