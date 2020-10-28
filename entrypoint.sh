@@ -1,5 +1,5 @@
 #!/bin/sh
-set -x
+set +x
 
 # `$*` expands the `args` supplied in an `array` individually
 # or splits `args` in a string separated by whitespace.
@@ -18,7 +18,7 @@ do
   echo "Process manifest '$file'"
 
   # split manifest into multiples files, in case it contain several resources
-  csplit --quiet --prefix="$MANIFESTS/manifest" $file "/---/" "{*}"
+  csplit --quiet --prefix="$MANIFESTS/#" $file "/---/" "{*}"
 
   echo "list manifests subfolder '$MANIFESTS'"
   ls $MANIFESTS
