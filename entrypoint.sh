@@ -9,28 +9,32 @@ sh -c "echo $*"
 # to validate, `opa eval` can only validate one input (ie object) at a time
 MANIFESTS=.reliably/manifests
 POLICIES=/policies/kubernetes
+REPORT=.reliably/report
 mkdir -p $MANIFESTS
-error=false
+touch $REPORT
 violationCount=0
 
 for file in ${INPUT_FILES}
 do
   echo "Process manifest '$file'"
+  echo $file >> $REPORT
+  echo "----------" >> $REPORT
 
   # split manifest into multiples files, in case it contain several resources
   csplit --quiet --prefix="$MANIFESTS/#" $file "/---/" "{*}"
 
-  echo "list manifests subfolder '$MANIFESTS'"
-  ls $MANIFESTS
+  #echo "list manifests subfolder '$MANIFESTS'"
+  #ls $MANIFESTS
 
-  echo "list policies subfolder '${POLICIES}'"
-  ls ${POLICIES}
+  #echo "list policies subfolder '${POLICIES}'"
+  #ls ${POLICIES}
 
   # iterate over the split files
   for manifest in $MANIFESTS/*
   do
 
     echo "Validate manifest $manifest"
+    echo $manifest >> $REPORT
 
     # convert the manifest from yaml to json (opa only accepts json)
     yaml2json $manifest > $manifest.json
@@ -44,12 +48,15 @@ do
 
     # display the report to user
     cat opa.json
+    cat opa.json >> $REPORT
 
   done
 
   # cleanup temporary manifests for next file
   rm $MANIFESTS/*
 done
+
+echo "::set-output name=result::$(cat $REPORT)"
 
 # fails the action globally if at least one violation was found
 echo "Manifest(s) have $violationCount violation(s)"
