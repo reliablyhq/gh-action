@@ -37,12 +37,12 @@ do
     # run the policies/rules validation - NON-breaking call
     opa eval -i $manifest.json -d ${INPUT_POLICIES} --format pretty 'data' > opa.json
 
-    # display the report to user
-    cat opa.json
-
     # count the number of violations to exit with non-zero status code
     count=$(cat opa.json | jq 'first(.[])[].violations' | grep -v '\[' | grep -v '\]' | wc -l)
     violationCount=$(( $violationCount + $count ))
+
+    # display the report to user
+    cat opa.json
 
   done
 
