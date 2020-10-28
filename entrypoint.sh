@@ -9,6 +9,7 @@ sh -c "echo $*"
 # to validate, `opa eval` can only validate one input (ie object) at a time
 MANIFESTS=.reliably/manifests
 mkdir -p $MANIFESTS
+error=false
 
 for file in ${INPUT_FILES}
 do
@@ -33,10 +34,20 @@ do
     yaml2json $manifest > $manifest.json
 
     # run the policies/rules validation - NON-breaking call
-    opa eval -i $manifest.json -d ${INPUT_POLICIES} --format pretty 'data'
+    opa eval --fail-defined  -i $manifest.json -d ${INPUT_POLICIES} --format pretty 'data'; rc=0 || rc=$?
+
+    if [ $rc -ne 0 ]; then
+      error=true
+    fi
 
   done
 
   # cleanup temporary manifests for next file
   rm $MANIFESTS/*
 done
+
+
+# fails the action globally if at least one violation was found
+if [ error == true ]; then
+  exit 1
+fi
