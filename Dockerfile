@@ -1,5 +1,5 @@
 FROM alpine:3.7 AS installer
-RUN apk --no-cache add --update wget coreutils
+RUN apk --no-cache add --update wget coreutils jq
 
 # Install open-policy-agent/opa
 ENV OPA_VERSION=v0.24.0
@@ -15,10 +15,12 @@ COPY --from=installer /tmp/opa/opa_linux_amd64 /usr/local/bin/opa
 COPY --from=installer /tmp/yaml2json/yaml2json-linux-amd64 /usr/local/bin/yaml2json
 
 COPY --from=installer /usr/bin/csplit /usr/bin/csplit
+COPY --from=installer /usr/bin/jq /usr/bin/jq
 
 RUN opa version
 RUN csplit --version
 RUN yaml2json -version
+RUN jq --version
 
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
