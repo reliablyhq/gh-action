@@ -17,7 +17,8 @@ violationCount=0
 for file in ${INPUT_FILES}
 do
   #echo "Process manifest '$file'"
-  echo "'$file'" >> $REPORT
+  echo "----------" >> $REPORT
+  echo "$file" >> $REPORT
   echo "----------" >> $REPORT
 
   # split manifest into multiples files, in case it contain several resources
