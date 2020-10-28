@@ -34,7 +34,9 @@ do
     yaml2json $manifest > $manifest.json
 
     # run the policies/rules validation - NON-breaking call
-    opa eval --fail-defined  -i $manifest.json -d ${INPUT_POLICIES} --format pretty 'data'; rc=0 || rc=$?
+    opa eval --fail-defined  -i $manifest.json -d ${INPUT_POLICIES} --format pretty 'data' && rc=0 || rc=$?
+
+    echo "opa eval rc = $rc"
 
     if [ $rc -ne 0 ]; then
       echo "OPA eval failed with defined violation $rc; set error to true"
