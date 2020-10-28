@@ -42,7 +42,7 @@ do
 
     # count the number of violations to exit with non-zero status code
     count=$(cat opa.json | jq 'first(.[])[].violations' | grep -v '\[' | grep -v '\]' | wc -l)
-    violationCount=$(( $violationCount + $c ))
+    violationCount=$(( $violationCount + $count ))
 
   done
 
@@ -51,9 +51,7 @@ do
 done
 
 # fails the action globally if at least one violation was found
-echo "error boolean value is $error"
+echo "Manifest(s) have $violationCount violation(s)"
 if [ $violationCount -ne 0 ]; then
-  echo "Manifest(s) have $violationCount violation(s)"
-  echo "force exit with non-zero return code"
   exit 1
 fi
