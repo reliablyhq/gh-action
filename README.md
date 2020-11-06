@@ -8,7 +8,7 @@ Kubernetes manifests.
 You can use the Action as follows:
 
 ```yaml
-name: Example workflow using Reliably for custom folder
+name: Example workflow using Reliably
 on: push
 jobs:
   demo:
@@ -32,7 +32,7 @@ These are passed to the action using `with`.
 ### Specifying custom folder for review
 
 ```yaml
-name: Example workflow using Reliably
+name: Example workflow using Reliably with a custom folder
 on: push
 jobs:
   demo:
