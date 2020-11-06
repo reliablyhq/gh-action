@@ -10,6 +10,10 @@ inputs:
     description: 'Directory subject to verification'
     required: false
     default: '.'
+  args:
+    description: "Additional arguments to pass to Reliably"
+    required: false
+    default: ''
 #outputs:
 #  result:
 #    description: 'Outputs of Reliably'

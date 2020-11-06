@@ -1,11 +1,35 @@
 # Reliably GitHub Action
 
 A [GitHub Action](https://github.com/features/actions) for using
-[Reliably](https://reliably.com) to check for vulnerabilities in your
+[Reliably](https://reliably.com) to check for reliability advice in your
 Kubernetes manifests.
 
 
 You can use the Action as follows:
+
+```yaml
+name: Example workflow using Reliably for custom folder
+on: push
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout source code'
+        uses: actions/checkout@v2
+      - name: Run Reliably to check Kubernetes manifests for reliability advice
+        uses: reliablyhq/gh-action@main
+```
+
+The Reliably Action has properties which are passed to the underlying image.
+These are passed to the action using `with`.
+
+| Property | Default | Description |
+| --- | --- | --- |
+| dir | . | Path of the folder to scan for advice |
+| args |  | Additional arguments to pass to Reliably |
+
+
+### Specifying custom folder for review
 
 ```yaml
 name: Example workflow using Reliably
@@ -16,18 +40,11 @@ jobs:
     steps:
       - name: 'Checkout source code'
         uses: actions/checkout@v2
-      - name: Run Reliably to check Kubernetes manifests for vulnerabilities
+      - name: Run Reliably to check Kubernetes manifests for reliability advice
         uses: reliablyhq/gh-action@main
         with:
-          files: 'manifest.yaml'
+          dir: './manifests'
 ```
-
-The Reliably Action has properties which are passed to the underlying image.
-These are passed to the action using `with`.
-
-| Property | Default | Description |
-| --- | --- | --- |
-| files |   | List of file paths to check for vulnerabilities |
 
 ### Triggering on manifest change only
 
@@ -72,9 +89,7 @@ jobs:
     steps:
       - name: 'Checkout source code'
         uses: actions/checkout@v2
-      - name: Run Reliably to check Kubernetes manifests for vulnerabilities
-        continue-on-error: true
+      - name: Run Reliably to check Kubernetes manifests for reliability advice
         uses: reliablyhq/gh-action@main
-        with:
-          files: 'manifest.yaml'
+        continue-on-error: true
 ```
