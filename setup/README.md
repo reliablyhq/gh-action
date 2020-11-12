@@ -1,7 +1,8 @@
 # Reliably Setup Action
 
-A [GitHub Action](https://github.com/features/actions) for installing [Reliably](https://reliably.com) CLI to check for
-Advice and Suggestions.
+A [GitHub Action](https://github.com/features/actions) for installing
+[Reliably CLI](https://github.com/reliablyhq/cli) to check for
+Reliably Advice and Suggestions.
 
 You can use the Action as follows:
 

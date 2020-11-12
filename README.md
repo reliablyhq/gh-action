@@ -1,8 +1,8 @@
 # Reliably GitHub Action
 
 A [GitHub Action](https://github.com/features/actions) for using
-[Reliably](https://reliably.com) to check for reliability advice in your
-Kubernetes manifests.
+[Reliably CLI](https://github.com/reliablyhq/cli) to check for
+Reliably Advice and Suggestions in your Kubernetes manifests.
 
 
 You can use the Action as follows:
