@@ -55,4 +55,4 @@ case "$2" in
 esac
 
 chmod +x reliably-${PREFIX}
-sudo mv reliably-${PREFIX} /usr/local/bin
+sudo mv reliably-${PREFIX} /usr/local/bin/reliably
