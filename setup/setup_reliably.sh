@@ -31,20 +31,28 @@ fi
 
 case "$2" in
     Linux)
-        PREFIX=linux-amd64
+        PREFIX="linux-amd64"
         ;;
     Windows)
         die "Windows runner not currently supported"
         ;;
     macOS)
-        PREFIX=darwin-amd64
+        PREFIX="darwin-amd64"
         ;;
     *)
         die "Invalid running specified: $2"
 esac
 
-wget -qO- https://api.github.com/repos/reliablyhq/cli/releases/latest | grep "browser_download_url" | grep  darwin-amd64 | cut -d '"' -f 4 | wget --progress=bar:force:noscroll -i -
+wget -qO- ${URL} | grep "browser_download_url" | grep  ${PREFIX} | cut -d '"' -f 4 | wget --progress=bar:force:noscroll -i -
 
-md5sum -c reliably-${PREFIX}.md5 || echo "Unable to check downloaded binary md5"
+case "$2" in
+    Linux)
+        md5sum -c reliably-${PREFIX}.md5
+        ;;
+    macOS)
+        echo "Unable to check downloaded binary md5 on macOS"
+        ;;
+esac
+
 chmod +x reliably-${PREFIX}
 sudo mv reliably-${PREFIX} /usr/local/bin
