@@ -44,7 +44,7 @@ jobs:
     - uses: reliablyhq/gh-action/setup@main
       id: reliably
       with:
-        reliably-version: v0.1
+        reliably-version: v0.1.0
     - name: Installed Reliably version
       run: echo "${{ steps.reliably.outputs.version }}"
 ```
