@@ -1,0 +1,20 @@
+name: "Setup Reliably"
+description: "Installs a specific version of Reliably"
+
+inputs:
+  reliably-version:
+    description: "Which Reliably version to install"
+    required: false
+    default: latest
+outputs:
+  version:
+    description: "The version of Reliably installed"
+    value: ${{ steps.version.outputs.version }}
+runs:
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/setup_reliably.sh ${{ inputs.reliably-version }} ${{ runner.os }}
+      shell: bash
+    - id: version
+      shell: bash
+      run: echo ::set-output name=version::"$(reliably --version)"
