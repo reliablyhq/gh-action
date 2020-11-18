@@ -10,6 +10,14 @@ inputs:
     description: 'Directory subject to verification'
     required: false
     default: '.'
+  format:
+    description: 'Report format'
+    required: false
+    default: 'simple'
+  output:
+    description: 'Write report to output file instead of stdout (default)'
+    required: false
+    default: ''
   args:
     description: "Additional arguments to pass to Reliably"
     required: false
@@ -24,4 +32,8 @@ runs:
   - ${{ inputs.command }}
   - --dir
   - ${{ inputs.dir }}
+  - --format
+  - ${{ inputs.format }}
+  - --output
+  - ${{ inputs.output }}
   - ${{ inputs.args }}
