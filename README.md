@@ -123,3 +123,10 @@ rather than on the standard output (default). To do so, you can use the
 ```
 
 As a note, the `format` and `output` properties can be combined together.
+
+### Install Reliably's CLI in your workflow runner
+
+You can also setup Reliably within your workflow, so that the command
+is directly available in a job step.
+
+You will find the `Setup Reliably` action details [here](https://github.com/reliablyhq/gh-action/tree/main/setup).
