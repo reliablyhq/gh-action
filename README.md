@@ -17,7 +17,7 @@ jobs:
       - name: 'Checkout source code'
         uses: actions/checkout@v2
       - name: Run Reliably to check Kubernetes manifests for reliability advice
-        uses: reliablyhq/gh-action@main
+        uses: reliablyhq/gh-action@v1
 ```
 
 The Reliably Action has properties which are passed to the underlying image.
@@ -42,7 +42,7 @@ jobs:
       - name: 'Checkout source code'
         uses: actions/checkout@v2
       - name: Run Reliably to check Kubernetes manifests for reliability advice
-        uses: reliablyhq/gh-action@main
+        uses: reliablyhq/gh-action@v1
         with:
           dir: './manifests'
 ```
@@ -91,7 +91,7 @@ jobs:
       - name: 'Checkout source code'
         uses: actions/checkout@v2
       - name: Run Reliably to check Kubernetes manifests for reliability advice
-        uses: reliablyhq/gh-action@main
+        uses: reliablyhq/gh-action@v1
         continue-on-error: true
 ```
 
@@ -106,7 +106,7 @@ use the `format` property, as follow:
 
 ```yaml
 - name: 'Run Reliably'
-  uses: reliablyhq/gh-action@main
+  uses: reliablyhq/gh-action@v1
   with:
     format: "sarif"
 ```
@@ -117,7 +117,7 @@ rather than on the standard output (default). To do so, you can use the
 
 ```yaml
 - name: 'Run Reliably'
-  uses: reliablyhq/gh-action@main
+  uses: reliablyhq/gh-action@v1
   with:
     output: "reliably.sarif"
 ```

@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: reliablyhq/gh-action/setup@main
+    - uses: reliablyhq/gh-action/setup@v1
 ```
 
 The Reliably Setup Action has properties which are passed to the underlying script.
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: reliablyhq/gh-action/setup@main
+    - uses: reliablyhq/gh-action/setup@v1
       id: reliably
       with:
         reliably-version: v0.1.0
