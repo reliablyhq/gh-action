@@ -1,6 +1,8 @@
 name: "Setup Reliably"
 description: "Installs a specific version of Reliably"
-
+branding:
+  icon: "check-circle"
+  color: "red"
 inputs:
   reliably-version:
     description: "Which Reliably version to install"

@@ -1,6 +1,9 @@
-name: 'reliably-action'
-description: 'Run manifests analysis for reliability issues'
+name: 'Reliably'
+description: 'Check for Reliably Advice and Suggestions'
 author: 'Reliably'
+branding:
+  icon: "check-circle"
+  color: "red"
 inputs:
   command:
     description: 'Reliably command to execute'
