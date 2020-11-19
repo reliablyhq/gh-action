@@ -1,26 +1,30 @@
 # Reliably GitHub Action
 
-A [GitHub Action](https://github.com/features/actions) for using
-[Reliably CLI](https://github.com/reliablyhq/cli) to check for
-Reliably Advice and Suggestions in your Kubernetes manifests.
+Reliably integrates with GitHub as a [GitHub Action][gh-action] that you can add to your own GitHub CI/CD workflows. Our Action is available on GitHub's [Marketplace][view-on-marketplace].
+
+[gh-action]: https://github.com/features/actions
+[view-on-marketplace]: https://github.com/marketplace/actions/reliably-github-action
 
 
-You can use the Action as follows:
+
+You use the Reliably GitHub Action by including it in any of your GitHub workflow
+YAML files:
 
 ```yaml
 name: Example workflow using Reliably
 on: push
 jobs:
-  demo:
+  reliably:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout source code'
         uses: actions/checkout@v2
-      - name: Run Reliably to check Kubernetes manifests for reliability advice
+      - name: Get Reliably suggestions
         uses: reliablyhq/gh-action@v1
 ```
+The code above adds a new job called `reliably` that checks out the code from your repository and then uses the Reliably GitHub Action to obtain any reliability advice and suggestions based on the code in the checked out repository.
 
-The Reliably Action has properties which are passed to the underlying image.
+The Reliably GitHub Action has properties which are passed to the underlying image.
 These are passed to the action using `with`.
 
 | Property | Default | Description |
@@ -30,7 +34,7 @@ These are passed to the action using `with`.
 | output | | Write the report to a specific file path; if not specified, report is printed to stdout |
 
 
-### Specifying custom folder for review
+### Specifying a custom folder for review
 
 ```yaml
 name: Example workflow using Reliably with a custom folder
@@ -41,13 +45,13 @@ jobs:
     steps:
       - name: 'Checkout source code'
         uses: actions/checkout@v2
-      - name: Run Reliably to check Kubernetes manifests for reliability advice
+      - name: Get Reliably suggestions
         uses: reliablyhq/gh-action@v1
         with:
           dir: './manifests'
 ```
 
-### Triggering on manifest change only
+### Triggering the action on a specific file change only
 
 You can trigger the workflow only when your manifests files change,
 using the `on` syntax as follow:
@@ -71,13 +75,13 @@ on:
 ```
 
 To know more on how to filter paths, for triggering your workflow,
-you can have a look at the [GitHub Workflow syntax](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestpaths) reference.
+you can have a look at the [GitHub Workflow syntax](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestpaths) reference docs.
 
 
 ### Continuing on error
 
-The above examples will fail the workflow when issues are found.
-If you want to ensure the Action continues, even if Reliably finds vulnerabilities,
+The above examples will fail the workflow when any Reliability suggestions are made.
+If you want to ensure the Action continues, even if Reliably surfaces suggestions,
 then [continue-on-error](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error) can be used.
 
 
@@ -101,7 +105,7 @@ jobs:
 Reliably supports mutltiple output formats, such as `simple` (default),
 `json`, `yaml`, `sarif`, `codeclimate`.
 
-To indicate the action to generate the report in another format, you can
+To ask the action to generate the report in another format, you can
 use the `format` property, as follow:
 
 ```yaml
@@ -111,9 +115,8 @@ use the `format` property, as follow:
     format: "sarif"
 ```
 
-You can also decide to generate and write the report in a local file,
-rather than on the standard output (default). To do so, you can use the
-`output` property, as follow:
+You can also decide to generate and write the report to a local file,
+rather than to the standard output, by using the `output` property:
 
 ```yaml
 - name: 'Run Reliably'
@@ -122,7 +125,7 @@ rather than on the standard output (default). To do so, you can use the
     output: "reliably.sarif"
 ```
 
-As a note, the `format` and `output` properties can be combined together.
+As a reminder, the `format` and `output` properties can be combined together.
 
 ### Install Reliably's CLI in your workflow runner
 
