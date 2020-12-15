@@ -48,6 +48,10 @@ env:
 You can generate and manage your access tokens in your Reliably account
 [https://reliably.com/tokens](https://reliably.com/tokens).
 
+You can also retrieve your access token if authenticated with the CLI:
+```
+$ reliably auth status --show-token
+```
 
 ### Specifying a custom folder for review
 
