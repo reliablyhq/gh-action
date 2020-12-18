@@ -30,7 +30,6 @@ runs:
   image: 'docker://ghcr.io/reliablyhq/cli/cli:latest'
   args:
   - ${{ inputs.command }}
-  - --dir
   - ${{ inputs.dir }}
   - --format
   - ${{ inputs.format }}
