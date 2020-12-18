@@ -21,10 +21,6 @@ inputs:
     description: 'Write report to output file instead of stdout (default)'
     required: false
     default: ''
-  args:
-    description: "Additional arguments to pass to Reliably"
-    required: false
-    default: ''
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/reliablyhq/cli/cli:latest'
@@ -35,4 +31,3 @@ runs:
   - ${{ inputs.format }}
   - --output
   - ${{ inputs.output }}
-  - ${{ inputs.args }}
