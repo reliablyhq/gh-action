@@ -9,8 +9,8 @@ inputs:
     description: 'Reliably command to execute'
     required: false
     default: 'scan'
-  subcommand:
-    description: 'What type of resource to scan'
+  resource:
+    description: 'Type of resource to scan for'
     required: false
     default: 'kubernetes'
   dir:
@@ -30,7 +30,7 @@ runs:
   image: 'docker://ghcr.io/reliablyhq/cli/cli:latest'
   args:
   - ${{ inputs.command }}
-  - ${{ inputs.subcommand }}
+  - ${{ inputs.resource }}
   - ${{ inputs.dir }}
   - --format
   - ${{ inputs.format }}
