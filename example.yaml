@@ -13,6 +13,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Reliably
         uses: reliablyhq/gh-action@v1
+        env:
+          RELIABLY_TOKEN: ${{ secrets.RELIABLY_TOKEN }}
         continue-on-error: true
         with:
           format: "sarif"
