@@ -1,7 +1,11 @@
 # Reliably GitHub Action
 
+**This action has been deprecated and replaced by the [scan action][scan-action] available as part of [Reliably actions][actions].**
+
 Reliably integrates with GitHub as a [GitHub Action][gh-action] that you can add to your own GitHub CI/CD workflows. Our Action is available on GitHub's [Marketplace][view-on-marketplace].
 
+[actions]: https://github.com/reliablyhq/actions
+[scan-action]: https://github.com/reliablyhq/actions/tree/master/scan
 [gh-action]: https://github.com/features/actions
 [view-on-marketplace]: https://github.com/marketplace/actions/reliably-github-action
 
